@@ -1,2 +1,4 @@
 import Home from "./HomePage/Home";
-export { Home };
+import Shop from "./ShopPage/Shop";
+
+export { Home, Shop };
