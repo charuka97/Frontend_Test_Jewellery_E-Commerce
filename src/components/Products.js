@@ -1,9 +1,36 @@
 import React, { useState } from "react";
 import { products } from "../data/Data";
+import { Link } from "react-router-dom";
+
+import { useEffect } from "react";
 
 export default function Products() {
-
   const [menuItems, setMenuItem] = useState(products);
+
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Function to check if the screen is in mobile view
+  const checkMobileView = () => {
+    setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+  };
+
+  // useEffect hook to add event listener for window resize
+  useEffect(() => {
+    checkMobileView(); // Check on initial render
+
+    // Add event listener for window resize
+    window.addEventListener("resize", checkMobileView);
+
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener("resize", checkMobileView);
+    };
+  }, []);
+
+  const toggleNavbar = () => {
+    setIsNavbarOpen(!isNavbarOpen);
+  };
 
   const filterItems = (category) => {
     const newItems = products.filter((item) => item.category === category);
@@ -21,68 +48,130 @@ export default function Products() {
   };
   return (
     <>
-      <div className="container-fluid fruite py-5">
-        <div className="container py-5">
+      <div className="container-fluid fruite py-0">
+        <div className="container py-2">
           <div className="text-center">
-            <div className="row g-4">
-              <div className="col-lg-4 text-start">
-                <h1>Featured Products</h1>
-              </div>
-              <div className="col-lg-8 text-end">
-                <ul className="nav nav-pills d-inline-flex text-center mb-5">
-                  <li className="nav-item">
-                    <a
-                      className="d-flex m-2 py-2 bg-light  active"
+            {/* Render ToggleWeb component in normal view */}
+            {!isMobile && (
+              <>
+                {" "}
+                <div className="row g-4">
+                  <div className="col-lg-4 text-start">
+                    <h2>Featured Products</h2>
+                  </div>
+                  <div className="col-lg-8 text-end">
+                    <ul
+                      className="nav nav-pills d-inline-flex text-center mb-6 d-lg-inline-flex"
+                      key={products.id}
+                    >
+                      <li className="nav-item">
+                        <a
+                          className="m-2 py-2 bg-light  active"
+                          onClick={handleShowAllItems}
+                        >
+                          <h5 style={{ width: "80px" }}>All</h5>
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a
+                          className="py-2 m-2 bg-light "
+                          onClick={() => filterItems("New")}
+                        >
+                          <h5 style={{ width: "100px" }}>New</h5>
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a
+                          className="m-2 py-2 bg-light "
+                          onClick={() => filterItems("Necklaces")}
+                        >
+                          <h5 style={{ width: "130px" }}>Necklaces</h5>
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a
+                          className="m-2 py-2 bg-light"
+                          onClick={() => filterItems("Bracelets")}
+                        >
+                          <h5 style={{ width: "130px" }}>Bracelets</h5>
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a
+                          className=" m-2 py-2 bg-light "
+                          onClick={() => filterItems("Ear studs")}
+                        >
+                          <h5 style={{ width: "130px" }}>Ear Studs</h5>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Render ToggleMenu component in mobile view */}
+            {isMobile && (
+              <>
+                <button
+                  className={`border  mb-4 ${isNavbarOpen ? "collapsed" : ""}`}
+                  type=""
+                  onClick={toggleNavbar}
+                  aria-label="Toggle navigation"
+                >
+                  {isNavbarOpen ? (
+                    <h4 className="mb-4" aria-hidden="false">
+                      Choose Categories
+                    </h4>
+                  ) : (
+                    <h4 className="">Choose Categories</h4>
+                  )}
+                </button>
+
+                <div
+                  className={`collapse navbar-collapse justify-content-center ${
+                    isNavbarOpen ? "show" : ""
+                  } bg-white`}
+                >
+                  <div className="navbar-nav">
+                    <Link
+                      className="nav-item nav-link active me-3"
                       onClick={handleShowAllItems}
                     >
-                      <h4 className="text-dark" style={{ width: "130px" }}>
-                        All
-                      </h4>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="d-flex py-2 m-2 bg-light "
+                      <h4 style={{ width: "130px" }}>All</h4>
+                    </Link>
+                    <Link
+                      className="nav-item nav-link active me-3"
                       onClick={() => filterItems("New")}
                     >
-                      <h4 className="text-dark" style={{ width: "130px" }}>
-                        New
-                      </h4>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="d-flex m-2 py-2 bg-light "
+                      <h4 style={{ width: "130px" }}>New</h4>
+                    </Link>
+                    <Link
+                      className="nav-item nav-link active me-3"
                       onClick={() => filterItems("Necklaces")}
                     >
-                      <h4 className="text-dark" style={{ width: "130px" }}>
-                        Necklaces
-                      </h4>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="d-flex m-2 py-2 bg-light"
+                      <h4 style={{ width: "130px" }}>Necklaces</h4>
+                    </Link>
+                    <Link
+                      className="nav-item nav-link active me-3"
                       onClick={() => filterItems("Bracelets")}
                     >
-                      <h4 className="text-dark" style={{ width: "130px" }}>
-                        Bracelets
-                      </h4>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="d-flex m-2 py-2 bg-light "
+                      <h4 style={{ width: "130px" }}>Bracelets</h4>
+                    </Link>
+                    <Link
+                      className="nav-item nav-link active me-3"
                       onClick={() => filterItems("Ear studs")}
                     >
-                      <h4 className="text-dark" style={{ width: "130px" }}>
-                        Ear studs
-                      </h4>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+                      <h4 style={{ width: "130px" }}>Ear Studs</h4>
+                    </Link>
+                    <Link to="/cart" className="nav-item nav-link me-3">
+                      <span className="d-none d-md-inline"></span>
+                    </Link>
+                  </div>
+                </div>
+              </>
+            )}
+
             <div>
               <div className="tab-pane fade show p-0 active">
                 <div className="row g-4">
@@ -94,31 +183,17 @@ export default function Products() {
                             <div className="fruite-img">
                               <img
                                 src={val.product_img}
-                                style={{ width: "500px", height: "200px" }} // Adjust width as needed
+                                style={{ width: "500px", height: "300px" }}
                                 className="img-fluid rounded-top"
-                                alt=""
+                                alt={val.description}
                               />
                             </div>
-                            <div
-                              className="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                              style={{ top: "10px", left: "10px" }}
-                            >
-                              {val.category}
-                            </div>
+
                             <div className="p-2  border-secondary border-top-4  rounded-bottom">
-                              <h5>{val.product_name}</h5>
+                              <h6>{val.product_name}</h6>
 
                               <div className="p-2  border-secondary border-top-4  rounded-bottom">
-                                <h4 className="text-dark fs-5   mb-2">
-                                  RS. {val.price}
-                                </h4>
-                                {/* <button
-                                  onClick={() => handleAddToCart(val)}
-                                  className="btn border border-secondary rounded-pill px-3 text-primary"
-                                >
-                                  <i className="fa fa-shopping-bag me-2 text-primary"></i>{" "}
-                                  Add to cart
-                                </button> */}
+                                <h5 className="">Rs: {val.price}</h5>
                               </div>
                             </div>
                           </div>
