@@ -69,4 +69,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 TThe easiest way to deploy your React.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [React.js deployment documentation](https://vercel.com/guides/deploying-react-with-verce) for more details.
+Check out our [React.js deployment documentation](https://vercel.com/guides/deploying-react-with-vercel) for more details.
