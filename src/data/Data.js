@@ -106,17 +106,6 @@ export const products = [
     karatage: "20k",
     metal: "yellow gold",
   },
-  {
-    id: 9,
-    category: "Chain",
-    product_name: "Chain Type Bracelet",
-    product_img: "../assets/img/image1.png",
-    description:
-      "Indulge in a culinary journey of exquisite flavors and tantalizing aromas with our diverse selection",
-    price: "800",
-    karatage: "20k",
-    metal: "yellow gold",
-  },
 ];
 
 export const slides = [
@@ -129,27 +118,8 @@ export const slides = [
     slide_img: "../assets/img/home-img-2.png",
   },
   {
-    category: "Pizza",
+    category: "Necklaces",
     slide_img: "../assets/img/home-img-3.png",
   },
 ];
-export const features = [
-  {
-    id: 1,
-    // icon: [<i className="fas fa-car-side fa-3x text-white"></i>],
-    title: "Free delivery",
-    descript: "Free on order over LKR300",
-  },
-  {
-    id: 2,
-    // icon: [<i className="fas fa-user-shield fa-3x text-white"></i>],
-    title: "Security Payment",
-    descript: "100% security payment",
-  },
-  {
-    id: 3,
-    // icon: [<i className="fas fa-exchange-alt fa-3x text-white"></i>],
-    title: "Instant Return",
-    descript: "30 day money guarantee",
-  },
-];
+
